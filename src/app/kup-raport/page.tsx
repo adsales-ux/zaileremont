@@ -1,0 +1,310 @@
+'use client';
+
+import { useSearchParams } from 'next/navigation';
+import { Suspense, useState } from 'react';
+
+function KupRaportContent() {
+  const searchParams = useSearchParams();
+  const typ = searchParams.get('typ') || 'remont';
+  const miasto = searchParams.get('miasto') || '';
+  const ksztalt = searchParams.get('ksztalt') || '';
+  const dlugosc = searchParams.get('dlugosc') || '';
+  const [email, setEmail] = useState('');
+
+  const titleMap: Record<string, string> = {
+    kuchnia: 'Kuchnia na wymiar',
+    lazienka: 'Remont łazienki',
+    malowanie: 'Malowanie ścian',
+    plytki: 'Układanie płytek',
+    okna: 'Okna PCV',
+    remont: 'Raport cenowy',
+  };
+
+  const title = titleMap[typ] || titleMap['remont'];
+
+  const stripeUrl = `https://buy.stripe.com/4gM3cv2Ub3cu9vv7i800000`;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+      <div className="max-w-2xl mx-auto px-4 py-12">
+        {/* Hero z inspiracją */}
+        <div className="relative rounded-2xl overflow-hidden mb-8 shadow-lg">
+          <div className="grid grid-cols-3 h-52">
+            <img
+              src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=350&fit=crop&q=80"
+              alt="Piękna nowoczesna kuchnia"
+              className="w-full h-full object-cover"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=400&h=350&fit=crop&q=80"
+              alt="Jasna kuchnia z drewnianymi szafkami"
+              className="w-full h-full object-cover"
+            />
+            <img
+              src="https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=400&h=350&fit=crop&q=80"
+              alt="Rodzina gotująca razem w kuchni"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/30 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6 text-white text-center">
+            <h1 className="text-3xl font-bold mb-1">
+              Nie przepłacaj za kuchnię marzeń
+            </h1>
+            <p className="text-white/80 text-lg">
+              {title}{miasto ? ` — ${miasto}` : ''}{ksztalt ? ` (${ksztalt}` : ''}{dlugosc ? `, ${dlugosc} mb)` : ksztalt ? ')' : ''}
+            </p>
+          </div>
+        </div>
+
+        {/* Sekcja korzyści — co zyskujesz */}
+        <div className="bg-white rounded-xl border border-slate-200 shadow-md p-6 mb-6">
+          <h2 className="text-lg font-bold text-slate-900 mb-4">Co zyskujesz z raportem?</h2>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="flex gap-3">
+              <span className="text-2xl shrink-0">💰</span>
+              <div>
+                <p className="font-semibold text-slate-800">Oszczędność 5 000 — 7 000 zł</p>
+                <p className="text-sm text-slate-500">Wiesz ile naprawdę kosztuje każdy element. Nie dasz się naciągnąć wykonawcy ani salonowi meblowemu.</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <span className="text-2xl shrink-0">⏱️</span>
+              <div>
+                <p className="font-semibold text-slate-800">Oszczędność 20+ godzin</p>
+                <p className="text-sm text-slate-500">Zamiast jeździć po 5 salonach i zbierać wyceny — dostajesz porównanie w jednym PDF w 30 sekund.</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <span className="text-2xl shrink-0">🛡️</span>
+              <div>
+                <p className="font-semibold text-slate-800">Unikasz kosztownych błędów</p>
+                <p className="text-sm text-slate-500">Checklista 15 checkpunktów układu kuchni — nie popełnisz błędów, które kosztują tysiące złotych do naprawienia.</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <span className="text-2xl shrink-0">🤝</span>
+              <div>
+                <p className="font-semibold text-slate-800">Negocjujesz z pozycji siły</p>
+                <p className="text-sm text-slate-500">20-punktowa checklista negocjacyjna — wiesz o co pytać, czego wymagać i jak zbić cenę nawet o 15–20%.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Podgląd raportu */}
+        <div className="bg-white rounded-xl border border-slate-200 shadow-md overflow-hidden mb-6">
+          <div className="bg-slate-800 text-white px-6 py-3 flex items-center justify-between">
+            <span className="text-sm font-medium">Podgląd przykładowego raportu</span>
+            <a
+              href="/raport-przyklad.pdf"
+              target="_blank"
+              className="text-xs text-blue-300 hover:text-blue-200 underline"
+            >
+              Otwórz pełny podgląd PDF
+            </a>
+          </div>
+          <div className="p-4 bg-slate-50">
+            <div className="grid grid-cols-3 gap-3 text-center text-xs">
+              <div className="bg-white rounded-lg border border-slate-200 p-3">
+                <p className="text-slate-400 uppercase font-medium mb-1">Strona 1</p>
+                <p className="font-semibold text-slate-700">Rozkład cen MIN / MED / MAX</p>
+                <p className="text-slate-400 mt-1">Ceny w 15 miastach</p>
+              </div>
+              <div className="bg-white rounded-lg border border-slate-200 p-3">
+                <p className="text-slate-400 uppercase font-medium mb-1">Strona 3</p>
+                <p className="font-semibold text-slate-700">Porównanie dostawców</p>
+                <p className="text-slate-400 mt-1">IKEA, Agata, Castorama, stolarz</p>
+              </div>
+              <div className="bg-white rounded-lg border border-slate-200 p-3">
+                <p className="text-slate-400 uppercase font-medium mb-1">Strona 5</p>
+                <p className="font-semibold text-slate-700">Checklista negocjacyjna</p>
+                <p className="text-slate-400 mt-1">20 punktów do sprawdzenia</p>
+              </div>
+            </div>
+            <a
+              href="/raport-przyklad.pdf"
+              target="_blank"
+              className="block text-center text-sm text-blue-600 hover:text-blue-800 font-medium mt-3"
+            >
+              Zobacz przykładowy raport (7 stron) →
+            </a>
+          </div>
+        </div>
+
+        {/* Karta produktu z płatnością */}
+        <div className="bg-white rounded-xl border-2 border-orange-200 shadow-lg overflow-hidden mb-8">
+          <div className="bg-gradient-to-r from-orange-600 to-orange-700 text-white px-6 py-5">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="font-semibold text-lg">Pełny raport PDF</span>
+                <p className="text-orange-100 text-sm mt-0.5">Dostajesz na e-mail w 30 sekund</p>
+              </div>
+              <div className="text-right">
+                <span className="text-base line-through text-white/60 block">69 zł</span>
+                <span className="text-3xl font-bold">29,99 zł</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="px-6 py-5">
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Co zawiera raport:</p>
+            <ul className="space-y-2.5 text-sm text-slate-700">
+              <li className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5 font-bold">✓</span>
+                Ceny minimalne, średnie i maksymalne dla Twojego miasta
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5 font-bold">✓</span>
+                Porównanie cen w 15 miastach Polski
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5 font-bold">✓</span>
+                Rozbicie kosztów element po elemencie
+              </li>
+              {typ === 'kuchnia' && (
+                <>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-600 mt-0.5 font-bold">✓</span>
+                    Ceny u 4 dostawców: IKEA, Agata, Castorama, stolarz
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-600 mt-0.5 font-bold">✓</span>
+                    20-punktowa checklista negocjacyjna (jak zbić cenę)
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-green-600 mt-0.5 font-bold">✓</span>
+                    15 checkpunktów optymalnego układu kuchni (uniknij błędów)
+                  </li>
+                </>
+              )}
+              <li className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5 font-bold">✓</span>
+                Wzór umowy z wykonawcą + protokół odbioru
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-green-600 mt-0.5 font-bold">✓</span>
+                Trend cenowy 12 miesięcy + prognoza
+              </li>
+            </ul>
+          </div>
+
+          <div className="border-t border-orange-100 px-6 py-5 bg-orange-50/30">
+            {/* Formularz email */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-slate-700 mb-1">
+                E-mail (raport wyślemy na ten adres)
+              </label>
+              <input
+                type="email"
+                placeholder="twoj@email.pl"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+              />
+            </div>
+
+            {/* Button Stripe */}
+            <a
+              href={stripeUrl}
+              className="block w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-6 rounded-lg transition-colors text-center shadow-lg hover:shadow-xl text-lg"
+            >
+              Kupuję raport — <span className="line-through opacity-60 mr-1">69 zł</span> 29,99 zł
+            </a>
+
+            <div className="flex items-center justify-center gap-4 mt-3 text-xs text-slate-400">
+              <span>BLIK</span>
+              <span>·</span>
+              <span>Karta</span>
+              <span>·</span>
+              <span>Przelew</span>
+              <span>·</span>
+              <span>Google Pay</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Bez raportu vs z raportem */}
+        <div className="grid grid-cols-2 gap-3 mb-8">
+          <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+            <p className="text-sm font-bold text-red-800 mb-2">Bez raportu:</p>
+            <ul className="text-xs text-red-700 space-y-1.5">
+              <li>Jedziesz do 5 salonów — tracisz weekendy</li>
+              <li>Nie wiesz czy cena jest dobra</li>
+              <li>Wykonawca zawyża pozycje o 20–30%</li>
+              <li>Błędy w układzie kosztują 3–8 tys. zł</li>
+              <li>Nie wiesz o co pytać przy odbiorze</li>
+            </ul>
+          </div>
+          <div className="bg-green-50 border border-green-200 rounded-xl p-4">
+            <p className="text-sm font-bold text-green-800 mb-2">Z raportem za 29,99 zł:</p>
+            <ul className="text-xs text-green-700 space-y-1.5">
+              <li>Porównanie 4 dostawców w 30 sekund</li>
+              <li>Znasz cenę MIN, ŚR i MAX każdego elementu</li>
+              <li>Checklista negocjacyjna — zbijasz cenę</li>
+              <li>15 checkpunktów — zero kosztownych błędów</li>
+              <li>Wzór umowy + protokół odbioru</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Social proof */}
+        <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-8">
+          <p className="text-sm text-amber-900 font-medium mb-2">Czy wiesz, że...</p>
+          <p className="text-sm text-amber-800">
+            Średni Polak przepłaca za remont kuchni od 3 000 do 8 000 zł, bo nie zna realnych cen rynkowych i nie wie o co pytać wykonawcę.
+            Nasz raport kosztuje mniej niż kawa w salonie meblowym — a może zaoszczędzić Ci wielokrotność tej kwoty.
+          </p>
+        </div>
+
+        {/* Jak to działa */}
+        <div className="text-center mb-8">
+          <h3 className="font-bold text-slate-800 mb-4">Jak to działa?</h3>
+          <div className="grid grid-cols-3 gap-4 text-xs text-slate-600">
+            <div>
+              <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                <span className="font-bold text-orange-700">1</span>
+              </div>
+              <p className="font-medium text-slate-800">Zapłać 29,99 zł</p>
+              <p className="mt-0.5">BLIK, karta lub przelew</p>
+            </div>
+            <div>
+              <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                <span className="font-bold text-orange-700">2</span>
+              </div>
+              <p className="font-medium text-slate-800">Sprawdź e-mail</p>
+              <p className="mt-0.5">Raport PDF w 30 sekund</p>
+            </div>
+            <div>
+              <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                <span className="font-bold text-orange-700">3</span>
+              </div>
+              <p className="font-medium text-slate-800">Negocjuj z wiedzą</p>
+              <p className="mt-0.5">Oszczędź nawet 7 000 zł</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Trust badges */}
+        <div className="flex items-center justify-center gap-6 text-xs text-slate-400">
+          <div className="flex items-center gap-1">
+            <span>⚡</span>
+            <span>Natychmiastowa dostawa</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <span>🔒</span>
+            <span>Bezpieczna płatność Stripe</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function KupRaportPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-slate-400">Ładowanie...</div>}>
+      <KupRaportContent />
+    </Suspense>
+  );
+}

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zaileremont.pl/sitemap.xml
+
+# Blokuj strony techniczne
+Disallow: /api/
+Disallow: /_next/

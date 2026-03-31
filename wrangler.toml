@@ -1,0 +1,16 @@
+name = "zaileremont"
+type = "javascript"
+account_id = ""
+workers_dev = true
+route = ""
+zone_id = ""
+compatibility_date = "2024-01-01"
+
+[env.production]
+route = "zaileremont.pl/*"
+zone_id = ""
+
+[build]
+command = "npm run pages:build"
+cwd = "./"
+watch_paths = ["src/**/*.tsx", "src/**/*.ts"]
