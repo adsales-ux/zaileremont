@@ -260,13 +260,6 @@ export default function BathroomCalculator() {
           minPrice={priceResult.p10}
           medianPrice={priceResult.p50}
           maxPrice={priceResult.p90}
-          percentiles={{
-            p10: priceResult.p10,
-            p25: priceResult.p25,
-            p50: priceResult.p50,
-            p75: priceResult.p75,
-            p90: priceResult.p90,
-          }}
         />
 
         <button

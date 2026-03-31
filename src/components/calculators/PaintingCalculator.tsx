@@ -230,13 +230,6 @@ export default function PaintingCalculator() {
           minPrice={priceResult.p10}
           medianPrice={priceResult.p50}
           maxPrice={priceResult.p90}
-          percentiles={{
-            p10: priceResult.p10,
-            p25: priceResult.p25,
-            p50: priceResult.p50,
-            p75: priceResult.p75,
-            p90: priceResult.p90,
-          }}
         />
         <div className="mt-8 flex gap-4 justify-center">
           <Button
