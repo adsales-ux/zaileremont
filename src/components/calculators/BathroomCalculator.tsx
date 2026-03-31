@@ -188,7 +188,8 @@ export default function BathroomCalculator() {
               : 'bathroom_tiles_mosaic'
       );
       items.push('bathroom_grouting');
-    } else if (form.wallType === 'paint' || form.wallType === 'tiles-paint') {
+    }
+    if (form.wallType === 'paint' || form.wallType === 'tiles-paint') {
       items.push('bathroom_painting');
     }
 
