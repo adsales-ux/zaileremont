@@ -10,138 +10,52 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="md:col-span-1">
             <div className="flex flex-col gap-2 mb-4">
-              <span className="text-lg font-bold text-brand-blue">
-                zaileremont.pl
-              </span>
-              <span className="text-xs font-medium text-slate-600">
-                Mapa Cen Remontów
+              <span className="text-lg font-bold tracking-tight">
+                <span className="text-blue-700">ile</span><span className="text-slate-900">remont</span><span className="text-blue-400 font-medium">.pl</span>
               </span>
             </div>
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-slate-600 mb-3">
               Kompleksowa analiza cen remontów i budowy w Polsce.
             </p>
+            <div className="text-xs text-slate-500 space-y-1">
+              <p className="font-medium text-slate-700">Adsales sp. z o.o.</p>
+              <p>NIP: 813 381 82 58</p>
+              <p>
+                <a href="mailto:kontakt@piosenka4you.pl" className="hover:text-brand-blue transition-smooth">
+                  kontakt@piosenka4you.pl
+                </a>
+              </p>
+            </div>
           </div>
 
           {/* Kalkulatory */}
           <div>
-            <h3 className="font-semibold text-slate-900 mb-4 text-sm">
-              Kalkulatory
-            </h3>
+            <h3 className="font-semibold text-slate-900 mb-4 text-sm">Kalkulatory</h3>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/kalkulator/okna-pcv"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Okna PCV
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/kalkulator/kuchnia-na-wymiar"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Kuchnia na wymiar
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/kalkulator/remont-lazienki"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Remont łazienki
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/kalkulator/malowanie-scian"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Malowanie ścian
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/kalkulator/ukladanie-plytek"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Układanie płytek
-                </Link>
-              </li>
+              <li><Link href="/kalkulator/kuchnia-na-wymiar" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Kuchnia na wymiar</Link></li>
+              <li><Link href="/kalkulator/remont-lazienki" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Remont łazienki</Link></li>
+              <li><Link href="/kalkulator/malowanie-scian" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Malowanie ścian</Link></li>
+              <li><Link href="/kalkulator/ukladanie-plytek" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Układanie płytek</Link></li>
             </ul>
           </div>
 
           {/* Narzędzia */}
           <div>
-            <h3 className="font-semibold text-slate-900 mb-4 text-sm">
-              Narzędzia
-            </h3>
+            <h3 className="font-semibold text-slate-900 mb-4 text-sm">Narzędzia</h3>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/mapa-cen"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Mapa Cen
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/poradnik"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Poradnik
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/metodologia"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Metodologia
-                </Link>
-              </li>
+              <li><Link href="/mapa-cen" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Mapa Cen</Link></li>
+              <li><Link href="/poradnik" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Poradnik</Link></li>
+              <li><Link href="/metodologia" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Metodologia</Link></li>
+              <li><Link href="/o-nas" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">O nas</Link></li>
             </ul>
           </div>
 
-          {/* Informacje */}
+          {/* Informacje prawne */}
           <div>
-            <h3 className="font-semibold text-slate-900 mb-4 text-sm">
-              Informacje
-            </h3>
+            <h3 className="font-semibold text-slate-900 mb-4 text-sm">Informacje prawne</h3>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/o-nas"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  O nas
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/kontakt"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Kontakt
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/polityka-prywatnosci"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Polityka prywatności
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/regulamin"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Regulamin
-                </Link>
-              </li>
+              <li><Link href="/regulamin" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Regulamin serwisu</Link></li>
+              <li><Link href="/polityka-prywatnosci" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Polityka prywatności</Link></li>
             </ul>
           </div>
         </div>
@@ -150,10 +64,8 @@ export default function Footer() {
         <div className="border-t border-slate-200 pt-8 mb-8">
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
             <p className="text-xs text-slate-700">
-              <span className="font-semibold text-brand-blue">
-                Ważna informacja:
-              </span>
-              {' '}Dane prezentowane w serwisie zaileremont.pl zostały wyliczone algorytmem
+              <span className="font-semibold text-brand-blue">Ważna informacja:</span>
+              {' '}Dane prezentowane w serwisie ilezaremont.pl zostały wyliczone algorytmem,
               na podstawie danych historycznych z lat ubiegłych. Wartości mogą
               się różnić od aktualnych cen rynkowych. Rekomendujemy weryfikację
               cen u konkretnych wykonawców i dostawców materiałów.
@@ -164,24 +76,14 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-slate-200 pt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <p className="text-sm text-slate-600">
-            &copy; {currentYear} zaileremont.pl. Wszystkie prawa zastrzeżone.
+            &copy; {currentYear} ilezaremont.pl &middot; Adsales sp. z o.o.
           </p>
           <div className="flex gap-6">
-            <Link
-              href="/kalkulator"
-              className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-            >
-              Wszystkie kalkulatory
-            </Link>
-            <Link
-              href="/mapa-cen"
-              className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-            >
-              Mapa cen
-            </Link>
+            <Link href="/regulamin" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Regulamin</Link>
+            <Link href="/polityka-prywatnosci" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Polityka prywatności</Link>
           </div>
         </div>
       </div>
     </footer>
   );
-}
+          }
