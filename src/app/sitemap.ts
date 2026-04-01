@@ -8,12 +8,11 @@ const topCities = [
 ];
 
 const services = [
-  'remont-lazienki', 'malowanie-scian', 'ukladanie-plytek',
-  'meble-na-wymiar', 'kuchnia-na-wymiar', 'okna-pcv'
+  'remont-lazienki', 'malowanie-scian', 'ukladanie-plytek'
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://zaileremont.pl';
+  const baseUrl = 'https://ilezaremont.pl';
   const now = new Date();
 
   // Strony statyczne
@@ -49,24 +48,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/kalkulator/meble-na-wymiar`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/kalkulator/kuchnia-na-wymiar`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/kalkulator/okna-pcv`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
       url: `${baseUrl}/mapa-cen`,
       lastModified: now,
       changeFrequency: 'weekly',
@@ -89,6 +70,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: 'weekly',
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/regulamin`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${baseUrl}/polityka-prywatnosci`,
+      lastModified: now,
+      changeFrequency: 'yearly',
+      priority: 0.3,
     },
   ];
 
