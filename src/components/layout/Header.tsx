@@ -13,22 +13,14 @@ export default function Header() {
         <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
-            {/* Icon mark */}
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-blue-800">
-              <svg className="h-4.5 w-4.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                <polyline points="9 22 9 12 15 12 15 22" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 shadow-md shadow-blue-200">
+              <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
             </div>
-            {/* Text */}
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-lg font-bold tracking-tight text-slate-900">
-                zaile<span className="text-blue-700">remont</span>
-              </span>
-              <span className="hidden sm:inline text-[11px] font-medium text-slate-400 uppercase tracking-wider">
-                Mapa Cen
-              </span>
-            </div>
+            <span className="text-xl font-bold tracking-tight">
+              <span className="text-blue-700">ile</span><span className="text-slate-900">remont</span><span className="text-blue-400 font-medium">.pl</span>
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
