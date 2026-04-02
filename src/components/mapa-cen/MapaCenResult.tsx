@@ -1,8 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
-import Card from '@/components/ui/Card';
-import Button from '@/components/ui/Button';
+import React, { useMemo, useState, useEffect } from 'react';
 import { CityData, CITIES } from '@/data/cities';
 import { calculatePrice, generateCityComparison } from '@/lib/pricing-engine';
 import { PricingFormAnswers } from '@/lib/pricing-engine';
@@ -58,8 +56,49 @@ const SERVICE_ITEMS: Record<string, string[]> = {
   ],
 };
 
+const STRIPE_URL = 'https://buy.stripe.com/4gM3cv2Ub3cu9vv7i800000';
+
+/* ── Countdown Timer ───────────────────────────────────────── */
+function CountdownTimer() {
+  const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    // Set promo end to midnight tonight
+    function getTarget() {
+      const now = new Date();
+      const end = new Date(now);
+      end.setHours(23, 59, 59, 999);
+      return end;
+    }
+
+    function tick() {
+      const diff = Math.max(0, getTarget().getTime() - Date.now());
+      const h = Math.floor(diff / 3_600_000);
+      const m = Math.floor((diff % 3_600_000) / 60_000);
+      const s = Math.floor((diff % 60_000) / 1_000);
+      setTimeLeft({ hours: h, minutes: m, seconds: s });
+    }
+
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const pad = (n: number) => String(n).padStart(2, '0');
+
+  return (
+    <div className="flex items-center justify-center gap-1 font-mono text-sm">
+      <span className="rounded bg-white/20 px-2 py-1 font-bold">{pad(timeLeft.hours)}</span>
+      <span className="font-bold">:</span>
+      <span className="rounded bg-white/20 px-2 py-1 font-bold">{pad(timeLeft.minutes)}</span>
+      <span className="font-bold">:</span>
+      <span className="rounded bg-white/20 px-2 py-1 font-bold">{pad(timeLeft.seconds)}</span>
+    </div>
+  );
+}
+
+/* ── Main Component ────────────────────────────────────────── */
 export default function MapaCenResult({ city, serviceType }: MapaCenResultProps) {
-  // Map service types if needed
   const mappedServiceType = ['bathroom', 'painting', 'tiles'].includes(serviceType)
     ? (serviceType as 'bathroom' | 'painting' | 'tiles')
     : ('bathroom' as 'bathroom' | 'painting' | 'tiles');
@@ -70,19 +109,17 @@ export default function MapaCenResult({ city, serviceType }: MapaCenResultProps)
     const answers: PricingFormAnswers = {
       city: city.id,
       serviceType: mappedServiceType,
-      area: 10, // Standard 10m2 for comparison
+      area: 10,
       selectedItems: items,
       marketType: 'secondary',
       standard: 'standard',
     };
-
     return calculatePrice(answers);
   }, [city, serviceType, mappedServiceType, items]);
 
   const warsawCoefficient = 1.25;
   const indexVsWarsaw = (city.coefficient / warsawCoefficient).toFixed(2);
 
-  // City comparison
   const comparison = useMemo(() => {
     const answers: PricingFormAnswers = {
       city: city.id,
@@ -92,247 +129,298 @@ export default function MapaCenResult({ city, serviceType }: MapaCenResultProps)
       marketType: 'secondary',
       standard: 'standard',
     };
-
-    const allCities = CITIES.map(c => c.id);
-    const top10Cities = CITIES.sort((a, b) => b.coefficient - a.coefficient)
+    const top10Cities = [...CITIES].sort((a, b) => b.coefficient - a.coefficient)
       .slice(0, 10)
       .map(c => c.id);
-
     return generateCityComparison(answers, top10Cities);
   }, [city, serviceType, mappedServiceType, items]);
 
-  // Percentile visualization
   const percentiles = [
-    { label: 'p10', value: result.p10, color: 'bg-emerald-500' },
-    { label: 'p25', value: result.p25, color: 'bg-yellow-400' },
-    { label: 'p50', value: result.p50, color: 'bg-orange-500' },
-    { label: 'p75', value: result.p75, color: 'bg-orange-600' },
-    { label: 'p90', value: result.p90, color: 'bg-red-500' },
+    { label: 'p10', value: result.p10, color: '#10b981', bg: '#d1fae5' },
+    { label: 'p25', value: result.p25, color: '#f59e0b', bg: '#fef3c7' },
+    { label: 'p50', value: result.p50, color: '#f97316', bg: '#ffedd5' },
+    { label: 'p75', value: result.p75, color: '#ea580c', bg: '#fed7aa' },
+    { label: 'p90', value: result.p90, color: '#ef4444', bg: '#fee2e2' },
   ];
 
   const maxValue = Math.max(...percentiles.map(p => p.value));
 
   return (
-    <div className="space-y-8">
-      {/* Price Summary Card */}
-      <Card padding="lg" className="border-2 border-accent-orange bg-gradient-to-br from-white to-orange-50">
-        <div className="space-y-6">
-          <div>
-            <h2 className="text-3xl font-bold text-slate-900">
-              Mapa Cen Remontów — {city.name}
-            </h2>
-            <p className="mt-2 text-lg text-slate-600">
-              Usługa: {SERVICE_NAMES[serviceType] || serviceType}
-            </p>
-          </div>
+    <div style={{ fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
 
-          <div className="grid gap-4 md:grid-cols-3">
-            <div className="rounded-lg border-2 border-emerald-200 bg-emerald-50 p-4">
-              <p className="text-xs font-semibold text-emerald-700">MIN</p>
-              <p className="mt-2 text-3xl font-bold text-emerald-900">
-                {Math.round(result.p10)}
+      {/* ── Header Card ─────────────────────────────────── */}
+      <div style={{
+        background: 'linear-gradient(135deg, #1e3a5f 0%, #1e40af 100%)',
+        borderRadius: '16px',
+        padding: '32px',
+        marginBottom: '24px',
+        color: 'white',
+      }}>
+        <p style={{ fontSize: '13px', fontWeight: 600, letterSpacing: '0.05em', textTransform: 'uppercase', opacity: 0.7, marginBottom: '8px' }}>
+          Raport cenowy
+        </p>
+        <h2 style={{ fontSize: '28px', fontWeight: 800, lineHeight: 1.2, margin: 0 }}>
+          {SERVICE_NAMES[serviceType] || serviceType}
+        </h2>
+        <p style={{ fontSize: '18px', fontWeight: 500, opacity: 0.85, marginTop: '4px' }}>
+          {city.name} · {city.voivodeship}
+        </p>
+
+        {/* Price boxes */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', marginTop: '24px' }}>
+          {[
+            { label: 'MIN', value: result.p10, accent: '#34d399' },
+            { label: 'MEDIANA', value: result.p50, accent: '#fbbf24' },
+            { label: 'MAX', value: result.p90, accent: '#f87171' },
+          ].map(box => (
+            <div key={box.label} style={{
+              background: 'rgba(255,255,255,0.1)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: '12px',
+              padding: '16px',
+              borderLeft: `4px solid ${box.accent}`,
+            }}>
+              <p style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.08em', opacity: 0.65, margin: 0 }}>{box.label}</p>
+              <p style={{ fontSize: '32px', fontWeight: 800, margin: '4px 0 0', lineHeight: 1.1 }}>
+                {Math.round(box.value)}
               </p>
-              <p className="text-xs text-emerald-700">zł/m²</p>
+              <p style={{ fontSize: '12px', opacity: 0.6, margin: 0 }}>zł/m²</p>
             </div>
-
-            <div className="rounded-lg border-2 border-orange-200 bg-orange-50 p-4">
-              <p className="text-xs font-semibold text-orange-700">MEDIANA</p>
-              <p className="mt-2 text-3xl font-bold text-orange-900">
-                {Math.round(result.p50)}
-              </p>
-              <p className="text-xs text-orange-700">zł/m²</p>
-            </div>
-
-            <div className="rounded-lg border-2 border-red-200 bg-red-50 p-4">
-              <p className="text-xs font-semibold text-red-700">MAX</p>
-              <p className="mt-2 text-3xl font-bold text-red-900">
-                {Math.round(result.p90)}
-              </p>
-              <p className="text-xs text-red-700">zł/m²</p>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-2 rounded-lg bg-white p-4 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="text-sm text-slate-600">Indeks vs. Warszawa</p>
-              <p className="text-2xl font-bold text-slate-900">{indexVsWarsaw}</p>
-            </div>
-            <div className="text-xs text-slate-500">
-              Ceny wyliczone algorytmem ilezaremont.pl
-            </div>
-          </div>
+          ))}
         </div>
-      </Card>
 
-      {/* Percentile Distribution */}
-      <Card padding="lg">
-        <h3 className="mb-6 text-xl font-bold text-slate-900">Rozkład percentylowy</h3>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '16px', padding: '12px 16px', background: 'rgba(255,255,255,0.08)', borderRadius: '8px' }}>
+          <div>
+            <p style={{ fontSize: '12px', opacity: 0.6, margin: 0 }}>Indeks vs. Warszawa</p>
+            <p style={{ fontSize: '22px', fontWeight: 800, margin: 0 }}>{indexVsWarsaw}</p>
+          </div>
+          <p style={{ fontSize: '11px', opacity: 0.5, margin: 0 }}>
+            Dane: algorytm ilezaremont.pl · kwiecień 2026
+          </p>
+        </div>
+      </div>
 
-        <div className="space-y-4">
-          {percentiles.map((p) => (
+      {/* ── Percentile Distribution ────────────────────── */}
+      <div style={{
+        background: '#fff',
+        borderRadius: '16px',
+        border: '1px solid #e2e8f0',
+        padding: '28px 32px',
+        marginBottom: '24px',
+      }}>
+        <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#1e293b', margin: '0 0 20px' }}>
+          Rozkład percentylowy cen
+        </h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          {percentiles.map(p => (
             <div key={p.label}>
-              <div className="mb-2 flex items-center justify-between">
-                <span className="text-sm font-medium text-slate-700">{p.label}</span>
-                <span className="text-sm font-semibold text-slate-900">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: '#475569' }}>{p.label}</span>
+                <span style={{ fontSize: '13px', fontWeight: 700, color: '#1e293b' }}>
                   {Math.round(p.value)} zł/m²
                 </span>
               </div>
-              <div className="relative h-8 overflow-hidden rounded-lg bg-slate-100">
-                <div
-                  className={`h-full ${p.color} transition-all duration-500`}
-                  style={{ width: `${(p.value / maxValue) * 100}%` }}
-                />
+              <div style={{ height: '10px', borderRadius: '5px', background: '#f1f5f9', overflow: 'hidden' }}>
+                <div style={{
+                  height: '100%',
+                  width: `${(p.value / maxValue) * 100}%`,
+                  borderRadius: '5px',
+                  background: `linear-gradient(90deg, ${p.bg}, ${p.color})`,
+                  transition: 'width 0.6s ease-out',
+                }} />
               </div>
             </div>
           ))}
         </div>
-      </Card>
+      </div>
 
-      {/* City Comparison Table */}
-      <Card padding="lg">
-        <h3 className="mb-6 text-xl font-bold text-slate-900">
-          Porównanie miast
+      {/* ── City Comparison ────────────────────────────── */}
+      <div style={{
+        background: '#fff',
+        borderRadius: '16px',
+        border: '1px solid #e2e8f0',
+        padding: '28px 32px',
+        marginBottom: '24px',
+      }}>
+        <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#1e293b', margin: '0 0 20px' }}>
+          Porównanie z innymi miastami
         </h3>
-
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '14px' }}>
             <thead>
-              <tr className="border-b border-slate-200">
-                <th className="px-4 py-3 text-left font-semibold text-slate-700">
-                  Miasto
-                </th>
-                <th className="px-4 py-3 text-right font-semibold text-slate-700">
-                  Min
-                </th>
-                <th className="px-4 py-3 text-right font-semibold text-slate-700">
-                  Mediana
-                </th>
-                <th className="px-4 py-3 text-right font-semibold text-slate-700">
-                  Max
-                </th>
-                <th className="px-4 py-3 text-right font-semibold text-slate-700">
-                  Indeks
-                </th>
+              <tr style={{ borderBottom: '2px solid #e2e8f0' }}>
+                <th style={{ padding: '10px 12px', textAlign: 'left', fontWeight: 600, color: '#64748b', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Miasto</th>
+                <th style={{ padding: '10px 12px', textAlign: 'right', fontWeight: 600, color: '#64748b', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Min</th>
+                <th style={{ padding: '10px 12px', textAlign: 'right', fontWeight: 600, color: '#64748b', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Mediana</th>
+                <th style={{ padding: '10px 12px', textAlign: 'right', fontWeight: 600, color: '#64748b', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Max</th>
+                <th style={{ padding: '10px 12px', textAlign: 'right', fontWeight: 600, color: '#64748b', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Indeks</th>
               </tr>
             </thead>
             <tbody>
               {comparison.map((c, idx) => {
-                const isCurrentCity = c.city === city.name;
+                const isCurrent = c.city === city.name;
                 return (
-                  <tr
-                    key={idx}
-                    className={`border-b border-slate-100 transition-colors ${
-                      isCurrentCity
-                        ? 'bg-accent-orange/10'
-                        : 'hover:bg-slate-50'
-                    }`}
-                  >
-                    <td className={`px-4 py-3 ${isCurrentCity ? 'font-bold text-orange-700' : 'text-slate-900'}`}>
+                  <tr key={idx} style={{
+                    borderBottom: '1px solid #f1f5f9',
+                    background: isCurrent ? '#eff6ff' : (idx % 2 === 0 ? '#fafbfc' : '#fff'),
+                  }}>
+                    <td style={{ padding: '10px 12px', fontWeight: isCurrent ? 700 : 500, color: isCurrent ? '#1d4ed8' : '#334155' }}>
                       {c.city}
-                      {isCurrentCity && (
-                        <span className="ml-2 rounded-full bg-accent-orange px-2 py-0.5 text-xs font-semibold text-white">
-                          bieżące
-                        </span>
+                      {isCurrent && (
+                        <span style={{
+                          marginLeft: '8px',
+                          display: 'inline-block',
+                          fontSize: '10px',
+                          fontWeight: 700,
+                          padding: '2px 8px',
+                          borderRadius: '10px',
+                          background: '#1d4ed8',
+                          color: '#fff',
+                        }}>TY</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-right text-slate-600">
-                      {Math.round(c.minPrice)} zł/m²
-                    </td>
-                    <td className="px-4 py-3 text-right font-semibold text-slate-900">
-                      {Math.round(c.medianPrice)} zł/m²
-                    </td>
-                    <td className="px-4 py-3 text-right text-slate-600">
-                      {Math.round(c.maxPrice)} zł/m²
-                    </td>
-                    <td className="px-4 py-3 text-right font-semibold text-slate-900">
-                      {c.coefficient.toFixed(2)}
-                    </td>
+                    <td style={{ padding: '10px 12px', textAlign: 'right', color: '#64748b' }}>{Math.round(c.minPrice)} zł</td>
+                    <td style={{ padding: '10px 12px', textAlign: 'right', fontWeight: 700, color: '#1e293b' }}>{Math.round(c.medianPrice)} zł</td>
+                    <td style={{ padding: '10px 12px', textAlign: 'right', color: '#64748b' }}>{Math.round(c.maxPrice)} zł</td>
+                    <td style={{ padding: '10px 12px', textAlign: 'right', fontWeight: 700, color: '#1e293b' }}>{c.coefficient.toFixed(2)}</td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
         </div>
-      </Card>
+      </div>
 
-      {/* Trend Section */}
-      <Card padding="lg" className="bg-gradient-to-r from-slate-50 to-slate-100">
-        <div className="space-y-4">
-          <h3 className="text-lg font-bold text-slate-900">Trend cenowy</h3>
-          <p className="text-sm text-slate-700">
-            <span className="font-semibold">+8% r/r</span> (dane GUS: CPI dla usług budowlanych)
-          </p>
-
-          {/* Mini chart - last 4 quarters */}
-          <div className="flex items-end gap-2">
-            {[72, 78, 82, 88].map((value, idx) => (
-              <div key={idx} className="flex flex-col items-center gap-2">
-                <div className="h-1 w-8 rounded bg-gradient-to-t from-accent-orange to-orange-400"
-                  style={{ height: `${value * 1.2}px` }}
-                />
-                <span className="text-xs text-slate-600">Q{idx + 1}</span>
-              </div>
-            ))}
-          </div>
+      {/* ── Trend Section ──────────────────────────────── */}
+      <div style={{
+        background: '#fff',
+        borderRadius: '16px',
+        border: '1px solid #e2e8f0',
+        padding: '28px 32px',
+        marginBottom: '24px',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+          <h3 style={{ fontSize: '18px', fontWeight: 700, color: '#1e293b', margin: 0 }}>Trend cenowy</h3>
+          <span style={{
+            fontSize: '13px',
+            fontWeight: 700,
+            padding: '4px 12px',
+            borderRadius: '20px',
+            background: '#fef2f2',
+            color: '#dc2626',
+          }}>+8% r/r</span>
         </div>
-      </Card>
-
-      {/* CTA Section */}
-      <Card padding="lg" className="border-2 border-transparent bg-gradient-to-r from-blue-600 to-blue-700 text-white">
-        <div className="space-y-6">
-          <div>
-            <h3 className="text-2xl font-bold">Pobierz pełny raport cenowy</h3>
-            <p className="mt-2 text-lg font-semibold text-blue-100">29 zł</p>
-          </div>
-
-          <ul className="space-y-3">
-            <li className="flex items-start gap-3">
-              <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white text-blue-600">
-                <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              </span>
-              <span>Szczegółowa analiza cen w Twoim mieście</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white text-blue-600">
-                <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              </span>
-              <span>Porównanie ze wszystkimi miastami w Polsce</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white text-blue-600">
-                <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              </span>
-              <span>Trendy cenowe i prognozy</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white text-blue-600">
-                <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              </span>
-              <span>Kalkulatory dla każdej usługi</span>
-            </li>
-          </ul>
-
-          <Button
-            variant="primary"
-            size="lg"
-            className="w-full bg-white text-blue-600 hover:bg-blue-50"
-          >
-            Kupuję raport
-          </Button>
-
-          <p className="text-center text-sm text-blue-100">
-            14 dni na zwrot · Natychmiastowy dostęp · PDF
-          </p>
+        <p style={{ fontSize: '13px', color: '#64748b', margin: '0 0 16px' }}>
+          Źródło: GUS — CPI dla usług budowlanych
+        </p>
+        <div style={{ display: 'flex', alignItems: 'flex-end', gap: '8px', height: '120px' }}>
+          {[
+            { q: 'Q1 2025', h: 60 },
+            { q: 'Q2 2025', h: 68 },
+            { q: 'Q3 2025', h: 75 },
+            { q: 'Q4 2025', h: 82 },
+            { q: 'Q1 2026', h: 92 },
+          ].map((bar, i) => (
+            <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px' }}>
+              <div style={{
+                width: '100%',
+                maxWidth: '48px',
+                height: `${bar.h}%`,
+                borderRadius: '6px 6px 0 0',
+                background: i === 4
+                  ? 'linear-gradient(180deg, #f97316, #ea580c)'
+                  : 'linear-gradient(180deg, #93c5fd, #3b82f6)',
+                transition: 'height 0.4s ease',
+              }} />
+              <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: 500 }}>{bar.q}</span>
+            </div>
+          ))}
         </div>
-      </Card>
+      </div>
+
+      {/* ── CTA — Buy Report ───────────────────────────── */}
+      <div style={{
+        background: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
+        borderRadius: '16px',
+        padding: '32px',
+        color: 'white',
+        textAlign: 'center',
+      }}>
+        {/* Promo badge */}
+        <div style={{
+          display: 'inline-block',
+          background: 'rgba(255,255,255,0.2)',
+          borderRadius: '20px',
+          padding: '4px 16px',
+          fontSize: '12px',
+          fontWeight: 700,
+          letterSpacing: '0.05em',
+          textTransform: 'uppercase',
+          marginBottom: '16px',
+        }}>
+          Promocja kończy się za
+        </div>
+
+        {/* Countdown */}
+        <CountdownTimer />
+
+        <h3 style={{ fontSize: '24px', fontWeight: 800, margin: '20px 0 8px', lineHeight: 1.2 }}>
+          Pobierz pełny raport PDF
+        </h3>
+        <p style={{ fontSize: '14px', opacity: 0.85, margin: '0 0 20px', maxWidth: '400px', marginLeft: 'auto', marginRight: 'auto' }}>
+          Szczegółowa analiza cen, porównanie miast, trendy i prognozy — wszystko w jednym dokumencie.
+        </p>
+
+        {/* Price */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px', marginBottom: '20px' }}>
+          <span style={{
+            fontSize: '22px',
+            fontWeight: 700,
+            textDecoration: 'line-through',
+            opacity: 0.6,
+          }}>69 zł</span>
+          <span style={{
+            fontSize: '42px',
+            fontWeight: 900,
+            lineHeight: 1,
+          }}>29 zł</span>
+        </div>
+
+        {/* CTA Button */}
+        <a
+          href={STRIPE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            display: 'block',
+            width: '100%',
+            maxWidth: '360px',
+            margin: '0 auto 16px',
+            padding: '16px 32px',
+            background: '#fff',
+            color: '#ea580c',
+            fontSize: '18px',
+            fontWeight: 800,
+            borderRadius: '12px',
+            textDecoration: 'none',
+            textAlign: 'center',
+            boxShadow: '0 4px 14px rgba(0,0,0,0.15)',
+            transition: 'transform 0.15s, box-shadow 0.15s',
+          }}
+          onMouseEnter={e => { (e.target as HTMLElement).style.transform = 'translateY(-2px)'; (e.target as HTMLElement).style.boxShadow = '0 6px 20px rgba(0,0,0,0.2)'; }}
+          onMouseLeave={e => { (e.target as HTMLElement).style.transform = 'translateY(0)'; (e.target as HTMLElement).style.boxShadow = '0 4px 14px rgba(0,0,0,0.15)'; }}
+        >
+          Pobierz raport
+        </a>
+
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px', fontSize: '12px', opacity: 0.75 }}>
+          <span>14 dni na zwrot</span>
+          <span>·</span>
+          <span>Natychmiastowy PDF</span>
+          <span>·</span>
+          <span>Bezpieczna płatność</span>
+        </div>
+      </div>
     </div>
   );
 }
