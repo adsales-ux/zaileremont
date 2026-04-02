@@ -2,9 +2,9 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Metodologia wyceny — jak obliczamy ceny remontów | zaileremont.pl',
+  title: 'Metodologia wyceny — jak obliczamy ceny remontów | ilezaremont.pl',
   description:
-    'Poznaj metodologię Price Map zaileremont.pl. Jak obliczamy ceny remontów? Jakie są źródła danych? Jak działa algorytm? Transparent i oparty na danych.',
+    'Poznaj metodologię Price Map ilezaremont.pl. Jak obliczamy ceny remontów? Jakie są źródła danych? Jak działa algorytm? Transparent i oparty na danych.',
   keywords: [
     'metodologia',
     'algorytm',
@@ -28,7 +28,7 @@ export default function MetodologiaPage() {
     description: 'Transparent metodologia i algorytm obliczania cen remontów',
     author: {
       '@type': 'Organization',
-      name: 'zaileremont.pl',
+      name: 'ilezaremont.pl',
     },
     dateModified: '2026-03-30',
   };
