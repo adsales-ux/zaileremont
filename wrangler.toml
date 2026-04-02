@@ -7,7 +7,7 @@ zone_id = ""
 compatibility_date = "2024-01-01"
 
 [env.production]
-route = "zaileremont.pl/*"
+route = "ilezaremont.pl/*"
 zone_id = ""
 
 [build]
