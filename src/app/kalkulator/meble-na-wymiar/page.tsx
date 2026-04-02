@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import FurnitureCalculator from '@/components/calculators/FurnitureCalculator';
 
 export const metadata: Metadata = {
-  title: 'Meble na wymiar — ceny 2026 | Kalkulator | zaileremont.pl',
+  title: 'Meble na wymiar — ceny 2026 | Kalkulator | ilezaremont.pl',
   description:
     'Ile kosztują meble na wymiar? Kalkulator cen mebli kuchennych, łazienkowych, szaf wnękowych i garderob. Wycena dostosowana do miasta, materiałów i wyposażenia.',
   openGraph: {
