@@ -42,14 +42,14 @@ export default function RegulaminPage() {
           </section>
           <section>
             <h2 className="text-xl font-bold text-slate-900 mb-3">8. Reklamacje</h2>
-            <p className="text-sm text-slate-700 leading-relaxed">Reklamacje dotyczące działania serwisu należy zgłaszać na adres e-mail: kontakt@piosenka4you.pl. Reklamacje będą rozpatrywane w terminie 14 dni roboczych od dnia ich otrzymania.</p>
+            <p className="text-sm text-slate-700 leading-relaxed">Reklamacje dotyczące działania serwisu należy zgłaszać na adres e-mail: raport@ilezaremont.pl. Reklamacje będą rozpatrywane w terminie 14 dni roboczych od dnia ich otrzymania.</p>
           </section>
           <section>
             <h2 className="text-xl font-bold text-slate-900 mb-3">9. Postanowienia końcowe</h2>
             <p className="text-sm text-slate-700 leading-relaxed">Usługodawca zastrzega sobie prawo do zmiany niniejszego regulaminu. W sprawach nieuregulowanych niniejszym regulaminem zastosowanie mają przepisy prawa polskiego.</p>
           </section>
           <section className="border-t border-slate-200 pt-6 mt-8">
-            <p className="text-xs text-slate-500">Adsales sp. z o.o. | NIP: 813 381 82 58 | kontakt@piosenka4you.pl</p>
+            <p className="text-xs text-slate-500">Adsales sp. z o.o. | NIP: 813 381 82 58 | raport@ilezaremont.pl</p>
           </section>
         </div>
       </div>
