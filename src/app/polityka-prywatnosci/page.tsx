@@ -17,7 +17,7 @@ export default function PolitykaPrywatnosciPage() {
             <h2 className="text-xl font-bold text-slate-900 mb-3">1. Administrator danych</h2>
             <p className="text-sm text-slate-700 leading-relaxed">
               Administratorem danych osobowych jest Adsales sp. z o.o., NIP: 813 381 82 58.
-              Kontakt z administratorem: kontakt@piosenka4you.pl.
+              Kontakt z administratorem: raport@ilezaremont.pl.
             </p>
           </section>
 
@@ -61,7 +61,7 @@ export default function PolitykaPrywatnosciPage() {
               ograniczenia przetwarzania, przenoszenia danych, wniesienia sprzeciwu wobec
               przetwarzania, oraz wniesienia skargi do organu nadzorczego (Prezes Urzędu
               Ochrony Danych Osobowych). W celu realizacji swoich praw prosimy o kontakt
-              na adres: kontakt@piosenka4you.pl.
+              na adres: raport@ilezaremont.pl.
             </p>
           </section>
 
@@ -109,7 +109,7 @@ export default function PolitykaPrywatnosciPage() {
 
           <section className="border-t border-slate-200 pt-6 mt-8">
             <p className="text-xs text-slate-500">
-              Adsales sp. z o.o. | NIP: 813 381 82 58 | kontakt@piosenka4you.pl
+              Adsales sp. z o.o. | NIP: 813 381 82 58 | raport@ilezaremont.pl
             </p>
           </section>
         </div>
