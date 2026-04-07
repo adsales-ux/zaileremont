@@ -31,7 +31,7 @@ export default function ONasPage() {
     logo: 'https://ilezaremont.pl/logo.png',
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'kontakt@ilezaremont.pl',
+      email: 'raport@ilezaremont.pl',
       contactType: 'Customer Service',
     },
   };
@@ -295,10 +295,10 @@ export default function ONasPage() {
                 </h3>
                 <p className="text-slate-600">
                   <a
-                    href="mailto:kontakt@ilezaremont.pl"
+                    href="mailto:raport@ilezaremont.pl"
                     className="text-brand-blue hover:text-blue-800 font-semibold"
                   >
-                    kontakt@ilezaremont.pl
+                    raport@ilezaremont.pl
                   </a>
                 </p>
                 <p className="mt-2 text-sm text-slate-500">
