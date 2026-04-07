@@ -21,8 +21,8 @@ export default function Footer() {
               <p className="font-medium text-slate-700">Adsales sp. z o.o.</p>
               <p>NIP: 813 381 82 58</p>
               <p>
-                <a href="mailto:kontakt@piosenka4you.pl" className="hover:text-brand-blue transition-smooth">
-                  kontakt@piosenka4you.pl
+                <a href="mailto:raport@ilezaremont.pl" className="hover:text-brand-blue transition-smooth">
+                  raport@ilezaremont.pl
                 </a>
               </p>
             </div>
