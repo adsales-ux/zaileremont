@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import CookieBanner from "@/components/layout/CookieBanner";
 import "./globals.css";
+
+const GA_MEASUREMENT_ID = "G-8LCDYBE9H3";
 
 const inter = Inter({
   subsets: ["latin-ext"],
@@ -10,7 +14,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Mapa Cen Remontów | zaileremont.pl",
+  title: "Mapa Cen Remontów | ilezaremont.pl",
   description:
     "Kompleksowa analiza cen remontów i budowy w Polsce. Kalkulator kosztów, mapa cen, poradniki eksperckie. Dane rzeczywiste, algorytm, aktualne trendy.",
   keywords: [
@@ -20,30 +24,31 @@ export const metadata: Metadata = {
     "mapa cen",
     "remont domu",
     "remont mieszkania",
+    "ile kosztuje remont",
   ],
-  authors: [{ name: "zaileremont.pl" }],
-  creator: "zaileremont.pl",
-  publisher: "zaileremont.pl",
+  authors: [{ name: "ilezaremont.pl" }],
+  creator: "ilezaremont.pl",
+  publisher: "Adsales sp. z o.o.",
   openGraph: {
     type: "website",
     locale: "pl_PL",
-    url: "https://zaileremont.pl",
-    siteName: "zaileremont.pl",
-    title: "Mapa Cen Remontów | zaileremont.pl",
+    url: "https://ilezaremont.pl",
+    siteName: "ilezaremont.pl",
+    title: "Mapa Cen Remontów | ilezaremont.pl",
     description:
       "Kompleksowa analiza cen remontów i budowy w Polsce. Kalkulator kosztów, mapa cen, poradniki eksperckie.",
     images: [
       {
-        url: "https://zaileremont.pl/og-image.png",
+        url: "https://ilezaremont.pl/og-image.png",
         width: 1200,
         height: 630,
-        alt: "zaileremont.pl - Mapa Cen Remontów",
+        alt: "ilezaremont.pl - Mapa Cen Remontów",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mapa Cen Remontów | zaileremont.pl",
+    title: "Mapa Cen Remontów | ilezaremont.pl",
     description:
       "Kompleksowa analiza cen remontów i budowy w Polsce.",
   },
@@ -52,7 +57,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: "https://zaileremont.pl",
+    canonical: "https://ilezaremont.pl",
   },
 };
 
@@ -64,14 +69,14 @@ export default function RootLayout({
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "zaileremont.pl",
-    "url": "https://zaileremont.pl",
+    "name": "ilezaremont.pl",
+    "url": "https://ilezaremont.pl",
     "description": "Kompleksowa analiza cen remontów i budowy w Polsce",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://zaileremont.pl/search?q={search_term_string}"
+        "urlTemplate": "https://ilezaremont.pl/search?q={search_term_string}"
       },
       "query-input": "required name=search_term_string"
     }
@@ -86,6 +91,18 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#1e40af" />
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -97,6 +114,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <CookieBanner />
       </body>
     </html>
   );

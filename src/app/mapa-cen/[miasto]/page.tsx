@@ -26,7 +26,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   }
 
   return {
-    title: `Ceny remontów w ${city.name} — Mapa Cen 2026 | zaileremont.pl`,
+    title: `Ceny remontów w ${city.name} — Mapa Cen 2026 | ilezaremont.pl`,
     description: `Sprawdź aktualne ceny remontów w ${city.name}. Remont łazienki, malowanie ścian, układanie płytek - porównaj ceny i znajdź najlepszą ofertę.`,
     keywords: `ceny remontów ${city.name}, usługi budowlane ${city.name}, remont ${city.name}`,
     openGraph: {

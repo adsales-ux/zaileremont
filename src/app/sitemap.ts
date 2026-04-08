@@ -13,7 +13,7 @@ const services = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://zaileremont.pl';
+  const baseUrl = 'https://ilezaremont.pl';
   const now = new Date();
 
   // Strony statyczne

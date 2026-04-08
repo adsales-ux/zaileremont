@@ -22,8 +22,9 @@ interface PriceResultProps {
   unit?: string;
 }
 
-function formatPrice(price: number): string {
-  return price.toLocaleString('pl-PL', {
+function formatPrice(price: number | undefined | null): string {
+  const safePrice = typeof price === 'number' && !isNaN(price) ? price : 0;
+  return safePrice.toLocaleString('pl-PL', {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   });
@@ -101,7 +102,7 @@ export default function PriceResult(props: PriceResultProps) {
       {/* Footer */}
       <div className="mb-6 space-y-2">
         <p className="text-xs text-slate-600">
-          Ceny wyliczone algorytmem zaileremont.pl na podstawie danych od
+          Ceny wyliczone algorytmem ilezaremont.pl na podstawie danych od
           wykonawców i wskaźników rynkowych. Aktualizacja modelu: marzec 2026.
         </p>
       </div>

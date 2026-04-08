@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import WindowCalculator from '@/components/calculators/WindowCalculator';
 
 export const metadata: Metadata = {
-  title: 'Okna PCV — ceny 2026 | Kalkulator | zaileremont.pl',
+  title: 'Okna PCV — ceny 2026 | Kalkulator | ilezaremont.pl',
   description:
     'Ile kosztują okna PCV w 2026? Kalkulator cen okien jednoskrzydłowych, dwuskrzydłowych, balkonowych, dachowych. Ceny z montażem i bez.',
   openGraph: {

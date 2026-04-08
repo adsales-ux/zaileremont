@@ -44,7 +44,7 @@ export async function generateMetadata(props: PageProps): Promise<Metadata> {
   }
 
   return {
-    title: `Ile kosztuje ${serviceName.toLowerCase()} w ${city.name} 2026 | Mapa Cen zaileremont.pl`,
+    title: `Ile kosztuje ${serviceName.toLowerCase()} w ${city.name} 2026 | Mapa Cen ilezaremont.pl`,
     description: `Sprawdź ceny ${serviceName.toLowerCase()} w ${city.name}. Aktualne ceny rynkowe, porównanie z innymi miastami, szczegółowa analiza kosztów.`,
     keywords: `${serviceName.toLowerCase()} ${city.name}, cena ${serviceName.toLowerCase()} ${city.name}, wycena usługi`,
     openGraph: {

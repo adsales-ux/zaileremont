@@ -1,0 +1,19 @@
+name = "ilezaremont-api"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+
+[vars]
+ADMIN_EMAIL = "ewelina.gebka.1@gmail.com"
+FROM_EMAIL = "raport@ilezaremont.pl"
+SITE_URL = "https://ilezaremont.pl"
+
+# Secrets (set via: wrangler secret put STRIPE_WEBHOOK_SECRET)
+# STRIPE_WEBHOOK_SECRET = "whsec_..."
+# RESEND_API_KEY = "re_..."
+
+[[kv_namespaces]]
+binding = "ORDERS"
+id = "bca7eb61c0fa4cc59a061c691ec53d2c"
+
+[env.production]
+vars = { ADMIN_EMAIL = "ewelina.gebka.1@gmail.com", FROM_EMAIL = "raport@ilezaremont.pl", SITE_URL = "https://ilezaremont.pl" }

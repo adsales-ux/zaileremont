@@ -432,7 +432,7 @@ export default function HeroSearchForm() {
           {/* Footer z linkami */}
           <div className="bg-slate-50 px-6 py-3 flex flex-col sm:flex-row items-center justify-between gap-2 border-t border-slate-100">
             <p className="text-[11px] text-slate-400">
-              Ceny wyliczone algorytmem zaileremont.pl na podstawie danych od wykonawców
+              Ceny wyliczone algorytmem ilezaremont.pl na podstawie danych od wykonawców
             </p>
             <div className="flex gap-3">
               <Link href={result.calcUrl} className="text-xs font-medium text-blue-600 hover:text-blue-800">

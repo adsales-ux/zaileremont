@@ -14,19 +14,16 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
             {/* Icon mark */}
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-blue-800">
-              <svg className="h-4.5 w-4.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 shadow-md shadow-blue-200">
+              <svg className="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                 <polyline points="9 22 9 12 15 12 15 22" />
               </svg>
             </div>
             {/* Text */}
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-lg font-bold tracking-tight text-slate-900">
-                zaile<span className="text-blue-700">remont</span>
-              </span>
-              <span className="hidden sm:inline text-[11px] font-medium text-slate-400 uppercase tracking-wider">
-                Mapa Cen
+            <div className="flex items-baseline gap-1">
+              <span className="text-lg font-extrabold tracking-tight">
+                <span className="text-blue-700">ile</span><span className="text-slate-900">remont</span><span className="text-blue-400 font-medium">.pl</span>
               </span>
             </div>
           </Link>

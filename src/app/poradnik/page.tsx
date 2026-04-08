@@ -2,9 +2,9 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Poradnik remontowy — porady i cenniki 2026 | zaileremont.pl',
+  title: 'Poradnik remontowy — porady i cenniki 2026 | ilezaremont.pl',
   description:
-    'Poradnik remontowy zaileremont.pl. Artykuły, porady, cenniki usług remontowych, kosztorysy i wskazówki dla remontu domu lub mieszkania.',
+    'Poradnik remontowy ilezaremont.pl. Artykuły, porady, cenniki usług remontowych, kosztorysy i wskazówki dla remontu domu lub mieszkania.',
   keywords: [
     'poradnik remontowy',
     'porady',
