@@ -16,8 +16,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Mapa Cen Remontów | ilezaremont.pl",
   description:
-    "Kompleksowa analiza cen remontów i budowy w Polsce. Kalkulator kosztów, mapa cen, poradniki eksperckie. Dane rzeczywiste, algorytm, aktualne trendy.",
+    "Sprawdź ile kosztuje remont w Twoim mieście. Kalkulatory kosztów, mapa cen remontów, poradniki eksperckie. Dane dla 333 miast w Polsce.",
   keywords: [
+    "ile kosztuje remont",
     "ceny remontów",
     "kalkulator remontów",
     "koszt remontu",
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
     siteName: "ilezaremont.pl",
     title: "Mapa Cen Remontów | ilezaremont.pl",
     description:
-      "Kompleksowa analiza cen remontów i budowy w Polsce. Kalkulator kosztów, mapa cen, poradniki eksperckie.",
+      "Sprawdź ile kosztuje remont w Twoim mieście. Kalkulatory kosztów, mapa cen, poradniki eksperckie.",
     images: [
       {
         url: "https://ilezaremont.pl/og-image.png",
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Mapa Cen Remontów | ilezaremont.pl",
     description:
-      "Kompleksowa analiza cen remontów i budowy w Polsce.",
+      "Sprawdź ile kosztuje remont w Twoim mieście. Kalkulatory i mapa cen.",
   },
   robots: {
     index: true,
@@ -118,4 +119,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+        }

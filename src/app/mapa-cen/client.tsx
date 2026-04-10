@@ -150,7 +150,7 @@ export default function MapaCenPageClient() {
       </section>
 
       {/* FAQ Section */}
-      <section className="bg-slate-50 py-12 md:py-16">
+      <section className="py-12 md:py-16">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-slate-900 mb-8">Pytania i odpowiedzi</h2>
 
@@ -180,12 +180,12 @@ export default function MapaCenPageClient() {
             name: 'Mapa Cen Remontów',
             url: 'https://ilezaremont.pl/mapa-cen',
             applicationCategory: 'UtilityApplication',
-            description: 'Interaktywna mapa cen remontów w Polsce',
+            description: 'Interaktywna mapa cen remontów w 333 miastach Polski',
             offers: {
               '@type': 'Offer',
               price: '29.99',
               priceCurrency: 'PLN',
-              description: 'Pełny raport cenowy',
+              description: 'Pełny raport cenowy PDF',
             },
           }),
         }}

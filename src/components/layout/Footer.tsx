@@ -29,124 +29,32 @@ export default function Footer() {
 
           {/* Kalkulatory */}
           <div>
-            <h3 className="font-semibold text-slate-900 mb-4 text-sm">
-              Kalkulatory
-            </h3>
+            <h3 className="font-semibold text-slate-900 mb-4 text-sm">Kalkulatory</h3>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/kalkulator/okna-pcv"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Okna PCV
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/kalkulator/kuchnia-na-wymiar"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Kuchnia na wymiar
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/kalkulator/remont-lazienki"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Remont łazienki
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/kalkulator/malowanie-scian"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Malowanie ścian
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/kalkulator/ukladanie-plytek"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Układanie płytek
-                </Link>
-              </li>
+              <li><Link href="/kalkulator/kuchnia-na-wymiar" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Kuchnia na wymiar</Link></li>
+              <li><Link href="/kalkulator/remont-lazienki" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Remont łazienki</Link></li>
+              <li><Link href="/kalkulator/malowanie-scian" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Malowanie ścian</Link></li>
+              <li><Link href="/kalkulator/ukladanie-plytek" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Układanie płytek</Link></li>
             </ul>
           </div>
 
           {/* Narzędzia */}
           <div>
-            <h3 className="font-semibold text-slate-900 mb-4 text-sm">
-              Narzędzia
-            </h3>
+            <h3 className="font-semibold text-slate-900 mb-4 text-sm">Narzędzia</h3>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/mapa-cen"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Mapa Cen
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/poradnik"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Poradnik
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/metodologia"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Metodologia
-                </Link>
-              </li>
+              <li><Link href="/mapa-cen" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Mapa Cen</Link></li>
+              <li><Link href="/poradnik" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Poradnik</Link></li>
+              <li><Link href="/metodologia" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Metodologia</Link></li>
+              <li><Link href="/o-nas" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">O nas</Link></li>
             </ul>
           </div>
 
-          {/* Informacje */}
+          {/* Informacje prawne */}
           <div>
-            <h3 className="font-semibold text-slate-900 mb-4 text-sm">
-              Informacje
-            </h3>
+            <h3 className="font-semibold text-slate-900 mb-4 text-sm">Informacje prawne</h3>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/o-nas"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  O nas
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/kontakt"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Kontakt
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/polityka-prywatnosci"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Polityka prywatności
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/regulamin"
-                  className="text-sm text-slate-600 hover:text-brand-blue transition-colors"
-                >
-                  Regulamin
-                </Link>
-              </li>
+              <li><Link href="/regulamin" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Regulamin serwisu</Link></li>
+              <li><Link href="/polityka-prywatnosci" className="text-sm text-slate-600 hover:text-brand-blue transition-smooth">Polityka prywatności</Link></li>
             </ul>
           </div>
         </div>
@@ -195,4 +103,4 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+          }

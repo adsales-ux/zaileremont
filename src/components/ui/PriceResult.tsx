@@ -4,22 +4,21 @@ import Button from './Button';
 import CountdownTimer from './CountdownTimer';
 
 interface PriceResultProps {
-  // Wzorzec 1: z MapaCen
-  serviceName?: string;
-  city?: string;
+  serviceName: string;
+  city: string;
   district?: string;
-  area?: number;
-  marketType?: string;
-  minPrice?: number;
-  medianPrice?: number;
-  maxPrice?: number;
-  // Wzorzec 2: z kalkulatorów
-  title?: string;
-  subtitle?: string;
-  min?: number;
-  median?: number;
-  max?: number;
-  unit?: string;
+  area: number;
+  marketType: string;
+  minPrice: number;
+  medianPrice: number;
+  maxPrice: number;
+  percentiles?: {
+    p10?: number;
+    p25?: number;
+    p50?: number;
+    p75?: number;
+    p90?: number;
+  };
 }
 
 function formatPrice(price: number | undefined | null): string {
@@ -44,62 +43,56 @@ export default function PriceResult(props: PriceResultProps) {
       ? `${props.city} · ${props.area ?? '—'} m² · rynek ${props.marketType || '—'}`
       : '');
 
+  const subtitle = district
+    ? `${city}, ${district} · ${area} m² · rynek ${marketType}`
+    : `${city} · ${area} m² · rynek ${marketType}`;
 
   return (
     <div className="w-full rounded-lg border border-slate-200 bg-white p-8 shadow-md-card">
-      {/* Header */}
       <div className="mb-8">
-        <h2 className="text-xl font-bold text-slate-900">{headerTitle}</h2>
-        {subtitleText && <p className="mt-2 text-sm text-slate-600">{subtitleText}</p>}
+        <h2 className="text-xl font-bold text-slate-900">
+          Szacunkowy koszt {serviceName}
+        </h2>
+        <p className="mt-2 text-sm text-slate-600">{subtitle}</p>
       </div>
 
-      {/* Price Boxes */}
       <div className="mb-8 grid grid-cols-3 gap-4">
         <div className="rounded-lg bg-slate-50 p-4 text-center">
           <p className="text-xs font-medium uppercase text-slate-600">MIN</p>
           <p className="mt-2 text-2xl font-bold text-brand-blue">
-            {formatPrice(minVal)} <span className="text-base">{unitText.includes('zł') ? '' : 'zł'}</span>
+            {formatPrice(minPrice)} <span className="text-base">zł</span>
           </p>
-          {props.unit && <p className="text-xs text-slate-400 mt-1">{props.unit}</p>}
         </div>
-
         <div className="rounded-lg bg-blue-50 p-4 text-center">
-          <p className="text-xs font-medium uppercase text-slate-600">ŚREDNIA</p>
+          <p className="text-xs font-medium uppercase text-slate-600">MEDIANA</p>
           <p className="mt-2 text-2xl font-bold text-brand-blue">
-            {formatPrice(medianVal)} <span className="text-base">{unitText.includes('zł') ? '' : 'zł'}</span>
+            {formatPrice(medianPrice)} <span className="text-base">zł</span>
           </p>
-          {props.unit && <p className="text-xs text-slate-400 mt-1">{props.unit}</p>}
         </div>
-
         <div className="rounded-lg bg-slate-50 p-4 text-center">
           <p className="text-xs font-medium uppercase text-slate-600">MAX</p>
           <p className="mt-2 text-2xl font-bold text-brand-blue">
-            {formatPrice(maxVal)} <span className="text-base">{unitText.includes('zł') ? '' : 'zł'}</span>
+            {formatPrice(maxPrice)} <span className="text-base">zł</span>
           </p>
-          {props.unit && <p className="text-xs text-slate-400 mt-1">{props.unit}</p>}
         </div>
       </div>
 
-      {/* Pasek cenowy MIN → ŚR → MAX */}
-      <div className="mb-8">
-        <div className="relative h-4 w-full rounded-full bg-gradient-to-r from-green-200 via-blue-200 to-purple-200 overflow-hidden">
-          {/* Marker średniej */}
-          <div
-            className="absolute top-0 h-full w-1 bg-brand-blue rounded-full"
-            style={{ left: `${maxVal > 0 ? (medianVal / maxVal) * 100 : 50}%` }}
-          />
-        </div>
-        <div className="flex justify-between mt-1.5 text-xs text-slate-500">
-          <span>MIN: {formatPrice(minVal)} zł</span>
-          <span className="font-semibold text-brand-blue">ŚR: {formatPrice(medianVal)} zł</span>
-          <span>MAX: {formatPrice(maxVal)} zł</span>
-        </div>
+      <div className="mb-8 space-y-3">
+        {[{l:'p10',v:percentiles.p10||minPrice,c:'bg-blue-200'},{l:'p25',v:percentiles.p25||minPrice,c:'bg-blue-300'},{l:'p50',v:percentiles.p50||medianPrice,c:'bg-brand-blue'},{l:'p75',v:percentiles.p75||maxPrice,c:'bg-blue-400'},{l:'p90',v:percentiles.p90||maxPrice,c:'bg-blue-500'}].map(p => (
+          <div key={p.l} className="space-y-1">
+            <div className="flex items-end justify-between">
+              <span className="text-xs font-medium text-slate-600">{p.l}</span>
+              <span className="text-xs text-slate-500">{formatPrice(p.v)} zł</span>
+            </div>
+            <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200">
+              <div className={`h-full ${p.c}`} style={{ width: `${getPercentageWidth(p.v)}%` }} />
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Divider */}
       <div className="mb-8 border-t border-slate-200" />
 
-      {/* Footer */}
       <div className="mb-6 space-y-2">
         <p className="text-xs text-slate-600">
           Ceny wyliczone algorytmem ilezaremont.pl na podstawie danych od
