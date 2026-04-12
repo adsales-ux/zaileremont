@@ -26,6 +26,8 @@ function KupRaportContent() {
     plytki: 'Układanie płytek',
     okna: 'Okna PCV',
     remont: 'Raport cenowy',
+    szafa: 'Szafa wnękowa',
+    pokoj: 'Meble pokojowe',
   };
 
   const headingMap: Record<string, string> = {
@@ -35,6 +37,8 @@ function KupRaportContent() {
     plytki: 'Nie przepłacaj za układanie płytek',
     okna: 'Nie przepłacaj za wymianę okien',
     remont: 'Nie przepłacaj za remont',
+    szafa: 'Nie przepłacaj za szafę wnękową',
+    pokoj: 'Nie przepłacaj za meble pokojowe',
   };
 
   const imageMap: Record<string, {src: string, alt: string}[]> = {
@@ -67,6 +71,16 @@ function KupRaportContent() {
       {src: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&h=400&fit=crop', alt: 'Remont mieszkania'},
       {src: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=400&h=400&fit=crop', alt: 'Nowoczesne wnętrze po remoncie'},
       {src: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=400&h=400&fit=crop', alt: 'Piękne wykończenie wnętrza'},
+    ],
+      szafa: [
+      { src: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800', alt: 'Szafa wnękowa' },
+      { src: 'https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800', alt: 'Garderoba na wymiar' },
+      { src: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800', alt: 'Szafa przesuwna' },
+    ],
+    pokoj: [
+      { src: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800', alt: 'Meble pokojowe' },
+      { src: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800', alt: 'Regały na wymiar' },
+      { src: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800', alt: 'Komoda na wymiar' },
     ],
   };
 
