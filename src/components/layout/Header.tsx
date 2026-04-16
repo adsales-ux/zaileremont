@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,22 +11,17 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-sm shadow-sm">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5">
-            {/* Icon mark */}
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 shadow-md shadow-blue-200">
-              <svg className="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                <polyline points="9 22 9 12 15 12 15 22" />
-              </svg>
-            </div>
-            {/* Text */}
-            <div className="flex items-baseline gap-1">
-              <span className="text-lg font-extrabold tracking-tight">
-                <span className="text-blue-700">ile</span><span className="text-slate-900">remont</span><span className="text-blue-400 font-medium">.pl</span>
-              </span>
-            </div>
+          <Link href="/" className="flex items-center" aria-label="ilezaremont.pl - Mapa Cen Remontów">
+            <Image
+              src="/images/logo@2x.png"
+              alt="ilezaremont.pl - Mapa Cen Remontów"
+              width={239}
+              height={192}
+              priority
+              className="h-11 w-auto md:h-12"
+            />
           </Link>
 
           {/* Desktop Navigation */}

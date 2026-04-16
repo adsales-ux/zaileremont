@@ -388,8 +388,8 @@ async function handleListOrders(env: Env): Promise<Response> {
 function customerPendingEmailHtml(order: Order): string {
   return `
     <div style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto;">
-      <div style="background: linear-gradient(135deg, #1e40af, #3b82f6); padding: 2rem; border-radius: 12px 12px 0 0;">
-        <h1 style="color: white; margin: 0; font-size: 1.5rem;">ilezaremont.pl</h1>
+      <div style="background: linear-gradient(135deg, #1e40af, #3b82f6); padding: 1.5rem; border-radius: 12px 12px 0 0; text-align: center;">
+        <img src="https://ilezaremont.pl/images/logo@2x.png" alt="ilezaremont.pl - Mapa Cen Remontów" width="180" style="height: auto; display: inline-block; background: white; padding: 8px 16px; border-radius: 8px;" />
       </div>
       <div style="background: white; padding: 2rem; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 12px 12px;">
         <h2 style="color: #1e293b;">Dziekujemy za zakup!</h2>
@@ -462,8 +462,8 @@ function adminNotificationEmailHtml(order: Order, authorizeUrl: string): string 
 function customerReportReadyEmailHtml(order: Order, reportUrl: string): string {
   return `
     <div style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto;">
-      <div style="background: linear-gradient(135deg, #1e40af, #3b82f6); padding: 2rem; border-radius: 12px 12px 0 0;">
-        <h1 style="color: white; margin: 0; font-size: 1.5rem;">ilezaremont.pl</h1>
+      <div style="background: linear-gradient(135deg, #1e40af, #3b82f6); padding: 1.5rem; border-radius: 12px 12px 0 0; text-align: center;">
+        <img src="https://ilezaremont.pl/images/logo@2x.png" alt="ilezaremont.pl - Mapa Cen Remontów" width="180" style="height: auto; display: inline-block; background: white; padding: 8px 16px; border-radius: 8px;" />
       </div>
       <div style="background: white; padding: 2rem; border: 1px solid #e2e8f0; border-top: none; border-radius: 0 0 12px 12px;">
         <h2 style="color: #1e293b;">Twoj raport jest gotowy!</h2>

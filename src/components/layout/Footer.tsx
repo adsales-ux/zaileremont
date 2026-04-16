@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -10,12 +11,13 @@ export default function Footer() {
           {/* Brand Section */}
           <div className="md:col-span-1">
             <div className="flex flex-col gap-2 mb-4">
-              <span className="text-lg font-extrabold">
-                <span className="text-blue-700">ile</span><span className="text-slate-900">remont</span><span className="text-blue-400 font-medium">.pl</span>
-              </span>
-              <span className="text-xs font-medium text-slate-600">
-                Mapa Cen Remontów
-              </span>
+              <Image
+                src="/images/logo@2x.png"
+                alt="ilezaremont.pl - Mapa Cen Remontów"
+                width={239}
+                height={192}
+                className="h-14 w-auto"
+              />
             </div>
             <p className="text-sm text-slate-600 mb-4">
               Kompleksowa analiza cen remontów i budowy w Polsce.
