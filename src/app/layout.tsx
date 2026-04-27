@@ -6,7 +6,7 @@ import Footer from "@/components/layout/Footer";
 import CookieBanner from "@/components/layout/CookieBanner";
 import "./globals.css";
 
-const GA_MEASUREMENT_ID = "G-8LCDYBE9H3";
+const GA_MEASUREMENT_ID = "G-4KX0V24ZTY";
 const META_PIXEL_ID = "1303474345016515";
 
 const inter = Inter({
